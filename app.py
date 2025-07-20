@@ -9,22 +9,22 @@ from encrypt_decrypt import encrypt_file, decrypt_file
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-#dbc
+# Database connection
 db = pymysql.connect(
     host="localhost",
     user="root",
-    password="", # Mysql password 
-    database="cloud4"     # Database Name
+    password="arun5002@",
+    database="cloud4"
 )
 
-#hr
+# Home Route
 @app.route('/')
 def index():
     if 'user_id' in session:
         return redirect(url_for('dashboard'))
     return render_template('index.html')
 
-#lr
+# Login Route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -44,13 +44,13 @@ def login():
     
     return render_template('login.html')
 
-
+# Logout Route
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('index'))
 
-#dr
+# Dashboard Route
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
@@ -58,14 +58,12 @@ def dashboard():
     
     user_id = session['user_id']
     with db.cursor() as cursor:
-        cursor.execute("""
-            SELECT file_id, filename FROM files WHERE user_id = %s
-        """, (user_id,))
-        files = cursor.fetchall()  
+        cursor.execute("SELECT file_id, filename FROM files WHERE user_id = %s", (user_id,))
+        files = cursor.fetchall()
     
     return render_template('dashboard.html', files=files)
 
-#rr
+# Register Route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -74,6 +72,14 @@ def register():
         password_hash = generate_password_hash(password)
         
         with db.cursor() as cursor:
+            # Check if username already exists
+            cursor.execute("SELECT id FROM users WHERE username = %s", (username,))
+            existing_user = cursor.fetchone()
+            if existing_user:
+                flash("Username already exists. Please choose a different one.", "error")
+                return redirect(url_for('register'))
+
+            # Insert new user
             cursor.execute("INSERT INTO users (username, password_hash) VALUES (%s, %s)", (username, password_hash))
         db.commit()
         
@@ -82,7 +88,7 @@ def register():
     
     return render_template('register.html')
 
-#ur
+# Upload Route
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if 'user_id' not in session:
@@ -118,7 +124,7 @@ def upload_file():
 def show_upload_message():
     return render_template('upload_success.html')
 
-#dr
+# Download Route
 @app.route('/download', methods=['GET', 'POST'])
 def download_file():
     if 'user_id' not in session:
@@ -139,7 +145,7 @@ def download_file():
             filename, encrypted_data = file_data
             
             if isinstance(encrypted_data, str):
-                encrypted_data = encrypted_data.encode('latin1')  
+                encrypted_data = encrypted_data.encode('latin1')
 
             try:
                 decrypted_data = decrypt_file(encrypted_data)
@@ -148,7 +154,7 @@ def download_file():
                 flash(f"Error decrypting file: {str(e)}", "error")
                 return redirect(url_for('dashboard'))
         else:
-            flash("File uploaded and encrypted successfully!", "success")
+            flash("File not found or access denied.", "error")
             return redirect(url_for('ret1'))
 
     return render_template('download.html')
