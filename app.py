@@ -13,8 +13,8 @@ app.secret_key = 'your_secret_key'
 db = pymysql.connect(
     host="localhost",
     user="root",
-    password="arun5002@",
-    database="cloud4"
+    password="",        # Mysql Password
+    database="cloud4"   # Database Name
 )
 
 # Home Route
