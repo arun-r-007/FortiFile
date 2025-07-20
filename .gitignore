@@ -1,0 +1,22 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+myenv/
+
+# RSA keys – keep these private!
+private.pem
+public.pem
+
+# Environment or secret config files (if any)
+.env
+
+# Upload folder (optional: if you don't want to push user-uploaded files)
+uploads/
+
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
