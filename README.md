@@ -1,4 +1,4 @@
-# 🔐 Secure File Upload and Download System
+# 🔐 FortiFile - Secure File Upload and Download System
 
 This project is a secure web application built with **Flask**, allowing users to **register**, **login**, **upload**, and **download encrypted files**. It uses a **hybrid encryption scheme** combining **RSA** and **AES (Fernet)** to ensure file confidentiality and user data protection.
 
