@@ -1,21 +1,21 @@
-# 🔐 FortiFile - Secure File Upload and Download System
+# FortiFile - Secure File Upload and Download System
 
 This project is a secure web application built with **Flask**, allowing users to **register**, **login**, **upload**, and **download encrypted files**. It uses a **hybrid encryption scheme** combining **RSA** and **AES (Fernet)** to ensure file confidentiality and user data protection.
 
 ---
 
-## 📁 Features
+## Features
 
-* ✅ User Registration and Authentication (Password Hashed using `werkzeug.security`)
-* 🔒 File Upload with Hybrid Encryption (RSA for key encryption + AES for file content)
-* 🔓 Secure File Download with Decryption
-* 📦 File Storage in MySQL as BLOB
-* 🧾 Session-based Access Control
-* 🌐 HTML Templates (login, register, dashboard, upload, download, success, etc.)
+*  User Registration and Authentication (Password Hashed using `werkzeug.security`)
+*  File Upload with Hybrid Encryption (RSA for key encryption + AES for file content)
+*  Secure File Download with Decryption
+*  File Storage in MySQL as BLOB
+*  Session-based Access Control
+*  HTML Templates (login, register, dashboard, upload, download, success, etc.)
 
 ---
 
-## 🧰 Technologies Used
+## Technologies Used
 
 | Tech Stack       | Description                             |
 | ---------------- | --------------------------------------- |
@@ -29,7 +29,7 @@ This project is a secure web application built with **Flask**, allowing users to
 
 ---
 
-## 🔐 How Encryption Works
+## How Encryption Works
 
 * A **random Fernet key** is generated for each uploaded file.
 * File content is encrypted using Fernet (**AES encryption**).
@@ -39,7 +39,7 @@ This project is a secure web application built with **Flask**, allowing users to
 
 ---
 
-## 🧪 Folder Structure
+## Folder Structure
 
 ```
 project/
@@ -62,21 +62,21 @@ project/
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
-### 1. 🔧 Prerequisites
+### 1. Prerequisites
 
 * Python 3.x
 * MySQL Server
 * `pip3` installed
 
-### 2. 📦 Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 pip3 install flask pymysql cryptography rsa
 ```
 
-### 3. 🛠️ Database Setup
+### 3. Database Setup
 
 Create a MySQL database named `cloud4`:
 
@@ -101,7 +101,7 @@ CREATE TABLE files (
 );
 ```
 
-### 4. 🔑 Generate RSA Keys
+### 4. Generate RSA Keys
 
 Run this once to generate RSA key pair:
 
@@ -109,7 +109,7 @@ Run this once to generate RSA key pair:
 python encrypt_decrypt.py
 ```
 
-### 5. 🚀 Run the Flask App
+### 5. Run the Flask App
 
 ```bash
 python app.py
@@ -119,7 +119,7 @@ Visit: [http://localhost:5000](http://localhost:5000)
 
 ---
 
-## 🧩 Key Flask Routes
+## Key Flask Routes
 
 | Route             | Function                    |
 | ----------------- | --------------------------- |
@@ -135,7 +135,7 @@ Visit: [http://localhost:5000](http://localhost:5000)
 
 ---
 
-## ⚠️ Security Notes
+## Security Notes
 
 * RSA keys are stored as PEM files (`public.pem` and `private.pem`). In production, these should be stored securely.
 * Sessions use a hardcoded `secret_key` — update it to a secure, random string for production.
