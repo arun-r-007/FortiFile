@@ -140,7 +140,7 @@ Visit: [http://localhost:5000](http://localhost:5000)
 * RSA keys are stored as PEM files (`public.pem` and `private.pem`). In production, these should be stored securely.
 * Sessions use a hardcoded `secret_key` — update it to a secure, random string for production.
 * Passwords are hashed but not salted uniquely per user — consider salting for improved security.
-* 
+  
 ---
 
 ## Dashboard Screenshot
